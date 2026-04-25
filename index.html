@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator - Conjurer's Ledger</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body data-page="calculator">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">Conjurer's Ledger</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="library.html">Beast Library</a>
+          <a class="active" href="index.html">Calculators</a>
+          <a href="help.html">Help</a>
+          <a href="about.html">About</a>
+        </nav>
+        <div class="top-actions">
+          <button class="icon-button fountain-button" id="fountain-roll-button" type="button" title="Fun Fountain Dew Roll" aria-label="Fun Fountain Dew Roll">
+            <svg class="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v4M8 7h8M6 20h12M7 17h10M9 11c-3 1-4.5 3.4-4.5 6M15 11c3 1 4.5 3.4 4.5 6M12 8c-1.7 1.4-2.5 3.3-2.5 5.8M12 8c1.7 1.4 2.5 3.3 2.5 5.8" />
+            </svg>
+          </button>
+          <a class="icon-link" href="settings.html" title="Open Settings" aria-label="Open Settings">
+            <svg class="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6ZM20 12l-2.1-.7a6.5 6.5 0 0 0-.6-1.4l1-2-2.3-2.2-1.9 1a7 7 0 0 0-1.5-.6L12 4H8.8l-.6 2.1a7 7 0 0 0-1.5.6l-1.9-1-2.3 2.2 1 2a6.5 6.5 0 0 0-.6 1.4L.8 12l.7 3.1 2.1.7c.2.5.4 1 .7 1.4l-1 2L5.6 21l1.9-1c.5.3 1 .5 1.5.6l.6 2.1h3.2l.6-2.1c.5-.1 1-.3 1.5-.6l1.9 1 2.3-2.2-1-2c.3-.4.5-.9.7-1.4l2.1-.7L20 12Z" />
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="page-header split">
+          <div>
+            <h1>Conjure Animals Damage Engine</h1>
+            <p>Simulate expected damage output for swarms, packs, and summoned beasts against a specific target armor class.</p>
+          </div>
+          <div class="hero-art" aria-label="Generated fantasy conjuration artwork"></div>
+        </section>
+
+        <section class="grid-main" aria-label="Damage calculator">
+          <div class="stack" id="calculator-form">
+            <section class="panel panel-pad">
+              <div class="panel-title">
+                <span><span aria-hidden="true">paw</span> <h2>Base Parameters</h2></span>
+                <span class="chip" id="active-beast">Custom Beasts</span>
+              </div>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="creature-count">Creature Count</label>
+                  <select id="creature-count">
+                    <option value="1">1 Creature (CR 2)</option>
+                    <option value="2">2 Creatures (CR 1)</option>
+                    <option value="4">4 Creatures (CR 1/2)</option>
+                    <option value="8" selected>8 Creatures (CR 1/4)</option>
+                    <option value="16">16 Creatures (Lv 5 Slot)</option>
+                    <option value="24">24 Creatures (Lv 7 Slot)</option>
+                    <option value="32">32 Creatures (Lv 9 Slot)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="target-ac">Target AC</label>
+                  <input id="target-ac" min="5" max="30" type="number" value="15">
+                </div>
+                <div class="field">
+                  <label for="attack-bonus">Attack Bonus</label>
+                  <input id="attack-bonus" min="-5" max="20" type="number" value="4">
+                </div>
+              </div>
+              <div class="dice-row">
+                <label>Damage Roll (Per Attack)</label>
+                <div class="dice-control">
+                  <input id="dice-count" min="1" max="10" type="number" value="1" aria-label="Damage dice count">
+                  <span>d</span>
+                  <select id="dice-size" aria-label="Damage die size">
+                    <option value="4">4</option>
+                    <option value="6" selected>6</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                  </select>
+                  <span>+</span>
+                  <input id="damage-bonus" min="0" max="20" type="number" value="2" aria-label="Damage modifier">
+                </div>
+                <p class="hint">Example: wolves deal 2d4 + 2 piercing damage.</p>
+              </div>
+            </section>
+
+            <section class="panel panel-pad">
+              <div class="panel-title">
+                <span><span aria-hidden="true">tune</span> <h2>Advanced Modifiers</h2></span>
+                <button class="icon-button" id="collapse-advanced" type="button" aria-label="Collapse advanced modifiers">-</button>
+              </div>
+              <div class="stack" id="advanced-content">
+                <div class="modifier">
+                  <div>
+                    <strong class="label">Advantage</strong>
+                    <small>Roll 2d20, take highest</small>
+                  </div>
+                  <button class="switch" id="advantage-toggle" type="button" aria-pressed="false" aria-label="Toggle advantage"></button>
+                </div>
+                <div class="modifier active">
+                  <div>
+                    <strong class="label gold">Pack Tactics</strong>
+                    <small>Auto-advantage if an ally is within 5 ft.</small>
+                  </div>
+                  <button class="switch" id="pack-toggle" type="button" aria-pressed="true" aria-label="Toggle pack tactics"></button>
+                </div>
+                <div class="modifier">
+                  <div>
+                    <strong class="label">Charge / Pounce</strong>
+                    <small>Adds 1d6 damage after a 20 ft. rush</small>
+                  </div>
+                  <button class="switch" id="charge-toggle" type="button" aria-pressed="false" aria-label="Toggle charge or pounce"></button>
+                </div>
+              </div>
+            </section>
+
+            <button class="primary-button" id="calculate-button" type="button">[d20] Calculate &amp; Roll</button>
+          </div>
+
+          <div class="stack">
+            <section class="result-vault">
+              <div>
+                <div class="result-label">Average Expected Damage</div>
+                <div class="damage-number" id="expected-damage">42.6</div>
+                <div class="chip-row">
+                  <span class="chip" id="target-chip">Target AC: 15</span>
+                  <span class="chip" id="attack-chip">vs 8 Attacks</span>
+                </div>
+              </div>
+            </section>
+
+            <div class="metrics-grid">
+              <section class="panel panel-pad metric-card">
+                <div class="panel-title">
+                  <span><h3>Single Simulation Run</h3></span>
+                  <button class="icon-button" id="reroll-button" type="button" title="Reroll simulation" aria-label="Reroll simulation">R</button>
+                </div>
+                <p class="muted" id="single-context">Result of 8 distinct d20 rolls against AC 15.</p>
+                <p><span class="big-run" id="single-damage">38</span> dmg</p>
+                <div class="roll-chips" id="roll-chips"></div>
+              </section>
+
+              <section class="panel panel-pad metric-card">
+                <div class="panel-title">
+                  <span><h3>Attack Probability</h3></span>
+                </div>
+                <p class="muted">Chance per individual attack to resolve.</p>
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Hit Chance</span><span id="hit-value">75.0%</span></div>
+                  <div class="bar"><span id="hit-bar"></span></div>
+                  <small class="muted" id="requirement">Advantage active</small>
+                </div>
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Critical Hit</span><span id="crit-value">9.75%</span></div>
+                  <div class="bar"><span id="crit-bar"></span></div>
+                  <small class="muted">Natural 20</small>
+                </div>
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Miss Chance</span><span id="miss-value">25.0%</span></div>
+                  <div class="bar"><span id="miss-bar"></span></div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel panel-pad history-panel">
+          <div class="panel-title">
+            <span><span aria-hidden="true">history</span> <h2>Mass Roll History</h2></span>
+          </div>
+          <div class="history-list" id="history-list"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner">
+          <strong class="brand">Conjurer's Ledger</strong>
+          <span>Built for table-speed summon math.</span>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#" data-toast="Open Gaming License notes are included on the About page.">OGL</a>
+            <a href="#" data-toast="Privacy: data stays in this browser through local storage.">Privacy</a>
+            <a href="#" data-toast="Support channel prepared. Use About to dispatch a missive.">Support</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

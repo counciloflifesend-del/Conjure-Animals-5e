@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Help - Conjurer's Ledger</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body data-page="help">
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">Arcane Ledger</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="library.html">Beast Library</a>
+          <a href="index.html">Calculators</a>
+          <a class="active" href="help.html">Help</a>
+          <a href="about.html">About</a>
+        </nav>
+        <div class="top-actions">
+          <button class="icon-button fountain-button" id="fountain-roll-button" type="button" title="Fun Fountain Dew Roll" aria-label="Fun Fountain Dew Roll">
+            <svg class="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v4M8 7h8M6 20h12M7 17h10M9 11c-3 1-4.5 3.4-4.5 6M15 11c3 1 4.5 3.4 4.5 6M12 8c-1.7 1.4-2.5 3.3-2.5 5.8M12 8c1.7 1.4 2.5 3.3 2.5 5.8" />
+            </svg>
+          </button>
+          <a class="icon-link" href="settings.html" title="Open Settings" aria-label="Open Settings">
+            <svg class="header-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6ZM20 12l-2.1-.7a6.5 6.5 0 0 0-.6-1.4l1-2-2.3-2.2-1.9 1a7 7 0 0 0-1.5-.6L12 4H8.8l-.6 2.1a7 7 0 0 0-1.5.6l-1.9-1-2.3 2.2 1 2a6.5 6.5 0 0 0-.6 1.4L.8 12l.7 3.1 2.1.7c.2.5.4 1 .7 1.4l-1 2L5.6 21l1.9-1c.5.3 1 .5 1.5.6l.6 2.1h3.2l.6-2.1c.5-.1 1-.3 1.5-.6l1.9 1 2.3-2.2-1-2c.3-.4.5-.9.7-1.4l2.1-.7L20 12Z" />
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <main class="container narrow">
+        <section class="page-header">
+          <h1>Conjure Animals Damage Engine</h1>
+          <p>Documentation and arcanum guide for resolving a table full of summoned attacks without losing the thread of the encounter.</p>
+        </section>
+
+        <div class="help-layout">
+          <nav class="panel side-nav" aria-label="Help sections">
+            <a href="#quick-start">Quick Start</a>
+            <a href="#engine-mechanics">Engine Mechanics</a>
+            <a href="#advanced-modifiers">Advanced Modifiers</a>
+            <a href="#beast-library">Beast Library</a>
+          </nav>
+
+          <div class="stack">
+            <section class="panel panel-pad content-section" id="quick-start">
+              <div class="panel-title">
+                <span><span aria-hidden="true">bolt</span> <h2>Quick Start</h2></span>
+              </div>
+              <p class="muted">The engine is designed to resolve the messy math involved when commanding a pack of summoned beasts.</p>
+              <div class="step-grid">
+                <div class="panel panel-pad">
+                  <h3 class="gold">1. Select Beast</h3>
+                  <p>Choose from the library or use custom stats on the calculator.</p>
+                </div>
+                <div class="panel panel-pad">
+                  <h3 class="gold">2. Set Quantity</h3>
+                  <p>Use the standard 1, 2, 4, or 8 creature breakpoints, or scale up for higher slots.</p>
+                </div>
+                <div class="panel panel-pad">
+                  <h3 class="gold">3. Target AC</h3>
+                  <p>Set the enemy armor class to calculate hit and crit probability.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel panel-pad content-section" id="engine-mechanics">
+              <div class="panel-title">
+                <span><span aria-hidden="true">math</span> <h2>Engine Mechanics</h2></span>
+              </div>
+              <p>Natural 1 misses, natural 20 crits, and critical hits double the dice while keeping flat damage modifiers unchanged.</p>
+              <p class="muted">Expected damage is attacks multiplied by the probability-weighted average of normal hits and critical hits.</p>
+            </section>
+
+            <section class="panel panel-pad content-section" id="advanced-modifiers">
+              <div class="panel-title">
+                <span><span aria-hidden="true">tune</span> <h2>Advanced Modifiers</h2></span>
+              </div>
+              <div class="stack">
+                <div class="modifier active">
+                  <div>
+                    <strong class="label gold">Pack Tactics</strong>
+                    <small>Applies advantage when an ally is adjacent to the target.</small>
+                  </div>
+                  <span class="chip">Common</span>
+                </div>
+                <div class="modifier">
+                  <div>
+                    <strong class="label">Charge / Pounce</strong>
+                    <small>Adds the configured extra damage line to successful hits.</small>
+                  </div>
+                  <span class="chip">Situational</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel panel-pad content-section" id="beast-library">
+              <div class="panel-title">
+                <span><span aria-hidden="true">book</span> <h2>Beast Library Integration</h2></span>
+              </div>
+              <p>The Beast Library is pre-loaded with common summons categorized by Challenge Rating and environment.</p>
+              <p class="muted">Importing a beast populates attack bonus, damage dice, creature count, and relevant traits. You can still override any field manually afterward.</p>
+              <a class="primary-button" href="library.html">Open Beast Library</a>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner">
+          <strong class="brand">Conjurer's Ledger</strong>
+          <span>Documentation for quick table rulings.</span>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#" data-toast="Quick Start shows the recommended first workflow.">Quick Start</a>
+            <a href="#" data-toast="Mechanics section explains the current math model.">Mechanics</a>
+            <a href="#" data-toast="Library integration imports beast defaults into the calculator.">Library</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
